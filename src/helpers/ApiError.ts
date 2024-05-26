@@ -1,9 +1,9 @@
-import { ValidationError } from "class-validator";
 import { HttpError } from "routing-controllers";
+import type { ValidationError } from "class-validator";
 
 interface MessageInterface {
   status: number;
-  message: string;
+  message?: string;
   code?: string;
   errors?: ValidationError[];
 }
@@ -22,7 +22,5 @@ export class ApiError extends HttpError {
     this.message = error.message || "";
   }
 
-  public toJSON = (): MessageInterface => {
-    return this.error;
-  };
+  public toJSON = (): MessageInterface => this.error;
 }
